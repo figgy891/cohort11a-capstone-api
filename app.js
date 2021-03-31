@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const passport = require('passport');
 var logger = require('morgan');
 require('./lib/seed')
 require('./lib/models')
@@ -11,10 +12,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 
+require('./lib/auth');
+
 var app = express();
 app.use(cors())
-
-// mysql://b3aabc126c0838:ecb09f4d@us-cdbr-east-03.cleardb.com/heroku_cb4907acc567d7a?reconnect=true
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api/v1', apiRouter);
+app.use('/api/v1', passport.authenticate('jwt', { session: false }),  apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
