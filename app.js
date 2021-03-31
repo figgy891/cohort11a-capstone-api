@@ -14,7 +14,7 @@ var apiRouter = require('./routes/api');
 var app = express();
 app.use(cors())
 
-mysql://b3aabc126c0838:ecb09f4d@us-cdbr-east-03.cleardb.com/heroku_cb4907acc567d7a?reconnect=true
+// mysql://b3aabc126c0838:ecb09f4d@us-cdbr-east-03.cleardb.com/heroku_cb4907acc567d7a?reconnect=true
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
